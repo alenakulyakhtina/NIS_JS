@@ -1,0 +1,84 @@
+#clue {
+  display: inline-block;
+  text-decoration: underline dashed;
+  font-weight: bolder;
+  text-underline-offset: 6px;
+  color: #1565C0;
+}
+
+.draw-container {
+  display: flex;
+  justify-content: center;
+}
+
+#draw {
+  border: 1px dashed;
+  color: black;
+  margin: 0 auto;
+}
+
+#history {
+  margin-top: 10vh;
+}
+
+#stroke, #stroke:focus {
+  accent-color: #1565C0;
+  border: 0;
+}
+
+.header {
+  margin-top: 3vh;
+  font-size: 2rem;
+  font-weight: bolder;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  user-select: none;
+}
+
+.button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: space-between;
+  margin-top: 3vh;
+  gap: 10px;
+}
+
+.button-col {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  align-content: space-between;
+  position: absolute;
+  margin-top: 3vh;
+  gap: 10px;
+}
+
+.button-group button {
+  padding: 10px 30px;
+}
+
+.button-base {
+  border: none;
+  border-radius: 20px;
+  font-family: 'Poppins', sans-serif;
+  user-select: none;
+}
+
+.container {
+  font-family: 'Poppins', sans-serif;
+  display: block;
+}
+
+.button-primary {
+  background-color: #1565C0;
+  font-size: 1.1rem;
+  color: white;
+}
+
+.button-info {
+  background-color: #607D8B;
+  font-size: .8rem;
+  color: white;
+}
