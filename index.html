@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Draw The</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fafafa">
+  <link rel="stylesheet" href="css/main.css">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- /Fonts -->
+</head>
+<body>
+<div class="content">
+  <div class="header">Draw The <p id="clue"></p></div>
+  <div class="container">
+    <div class="draw-container">
+      <canvas id="draw" height="1280" width="960"></canvas>
+      <div class="button-col" id="control">
+        <button class="button-base button-info" id="undo">Undo</button>
+        <button class="button-base button-info" id="redo">Redo</button>
+      </div>
+    </div>
+    <div class="button-group">
+      <button class="button-base button-primary" id="refresh">Get a new clue</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
