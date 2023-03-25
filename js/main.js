@@ -6,11 +6,22 @@ const clues = [
   "Mouse"
 ]
 
+const colors = [
+  "red",
+  "orange",
+  "yellow",
+  "green",
+  "blue",
+  "violet",
+  "black"
+]
+
 const clueParagraph = document.getElementById("clue")
-const saveButton = document.getElementById("save")
 const refreshButton = document.getElementById("refresh")
 const undoButton = document.getElementById("undo")
 const redoButton = document.getElementById("redo")
+const resetButton = document.getElementById("reset")
+const strokeWidthSlider = document.getElementById('stroke-width')
 
 const drawArea = document.getElementById("draw")
 const context = drawArea.getContext('2d')
@@ -46,33 +57,47 @@ const saveCanvas = () => {
 }
 
 const restoreCanvas = () => {
-  const content = localStorage.getItem("image")
-  if (content === null) {
-    return
-  }
+  return new Promise((resolve) => {
+    const content = localStorage.getItem("image")
+    if (content === null) {
+      resolve(null)
+      return
+    }
 
-  const image = new Image();
-  image.src = content
-  image.onload = () => {
-    context.drawImage(image, 0, 0)
-  }
+    const image = new Image();
+    image.src = content
+    image.onload = () => {
+      context.drawImage(image, 0, 0)
+      resolve(context.getImageData(0, 0, drawArea.width, drawArea.height))
+    }
 
-  const clue = localStorage.getItem("clue")
-  if (clue !== null) {
-    clueParagraph.innerText = clue
-    document.title = "Draw The " + clue
-  }
+    const clue = localStorage.getItem("clue")
+    if (clue !== null) {
+      clueParagraph.innerText = clue
+      document.title = "Draw The " + clue
+    }
+  })
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   prepareCanvas()
-  restoreCanvas()
 
-  let points = []
   let states = []
+  let points = []
   let purged = []
   let tempState = null
   let drawing = false
+
+  // Wait and restore saved state if any
+  let initialState = await restoreCanvas()
+  if (initialState !== null) {
+    states.push(initialState)
+  }
+
+  // Initialize color
+  let currentColor = colors[colors.length - 1]
+  document.getElementById(currentColor).classList.add('accent')
+  drawArea.strokeStyle = currentColor
 
   // Handle the start of drawing a line
   drawArea.onmousedown = (event) => {
@@ -140,10 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return
     }
 
-    const purge = states[states.length - 1]
-    purged.push(purge)
+    purged.push(states.pop())
 
-    states.pop()
     if (states.length !== 0) {
       context.putImageData(states[states.length - 1], 0, 0)
       saveCanvas()
@@ -157,12 +180,10 @@ document.addEventListener('DOMContentLoaded', () => {
       return
     }
 
-    const restore = purged[purged.length - 1]
-    purged.pop()
-
+    const restore = purged.pop()
     context.putImageData(restore, 0, 0)
-    saveCanvas()
     states.push(restore)
+    saveCanvas()
   }
 
   refreshButton.onclick = () => {
@@ -172,5 +193,35 @@ document.addEventListener('DOMContentLoaded', () => {
     purged = []
     states = []
     refreshClue()
+    saveCanvas()
+  }
+
+  resetButton.onclick = () => {
+    if (!confirm("Are you sure you want to reset current drawing area?")) {
+      return
+    }
+    purged = []
+    states = []
+    context.clearRect(0, 0, drawArea.width, drawArea.height)
+    saveCanvas()
+  }
+
+  /**
+   * Colors
+   */
+  for (let color of colors) {
+    document.getElementById(color).onclick = () => {
+      document.getElementById(currentColor).classList.remove('accent')
+      currentColor = color
+      document.getElementById(currentColor).classList.add('accent')
+      context.strokeStyle = color
+    }
+  }
+
+  /**
+   * Stroke width
+   */
+  strokeWidthSlider.oninput = () => {
+    context.lineWidth = strokeWidthSlider.value
   }
 })
