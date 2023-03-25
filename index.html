@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Draw The</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fafafa">
+  <link rel="stylesheet" href="css/main.css">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- /Fonts -->
+</head>
+<body>
+<div class="content">
+  <div class="header">Draw The <p id="clue"></p></div>
+  <div class="container">
+    <div class="draw-container">
+      <canvas id="draw" height="1280" width="960"></canvas>
+      <div class="button-col" id="control">
+        <button class="button-base button-info" id="undo">Undo</button>
+        <button class="button-base button-info" id="redo">Redo</button>
+        <button class="button-base button-warn" id="reset">Reset</button>
+      </div>
+    </div>
+
+    <!-- Stroke width -->
+    <div class="draw-container" id="stroke-width-container">
+      <input type="range" id="stroke-width" min="2" max="40" value="2" title="Stroke width"/>
+    </div>
+    <!-- /Stroke width -->
+
+    <!-- Colors -->
+    <div id="color-container">
+      <svg id="red" viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="1" cy="1" r="1"/>
+      </svg>
+      <svg id="orange" viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="1" cy="1" r="1"/>
+      </svg>
+      <svg id="yellow" viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="1" cy="1" r="1"/>
+      </svg>
+      <svg id="green" viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="1" cy="1" r="1"/>
+      </svg>
+      <svg id="blue" viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="1" cy="1" r="1"/>
+      </svg>
+      <svg id="violet" viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="1" cy="1" r="1"/>
+      </svg>
+      <svg id="black" viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="1" cy="1" r="1"/>
+      </svg>
+    </div>
+    <!-- /Colors -->
+
+    <div class="button-group">
+      <button class="button-base button-primary" id="refresh">Get a new clue</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
